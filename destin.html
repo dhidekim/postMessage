@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destin</title>
+</head>
+<body>
+	Receive Postmessage
+	<div id="received-message"></div>
+
+<script type="text/javascript">
+	function displayMessage(event){
+		arrayEnergia = [
+			"http://localhost:3000"
+		]
+		if (!arrayEnergia.includes(event.origin))
+		return;
+
+		const message = event.data;
+		if(message && !message.request){
+			let messageObj = JSON.parse(message)
+			if(messageObj && messageObj._token){
+				localStorage.setItem('_token', JSON.parse(message)._token)
+			}
+			if(messageObj && messageObj._expTime){
+				localStorage.setItem('_expTime', JSON.parse(message)._expTime)
+			}
+			if(messageObj && messageObj._newvalue){
+				localStorage.setItem('_newvalue', JSON.parse(message)._newvalue)
+			}
+		}
+	}
+
+	if (window.addEventListener) {
+		window.addEventListener('message', displayMessage, false);
+	}else{
+		window.attachEvent("onmessage", displayMessage);
+	}
+</script>
+</body>
+</html>

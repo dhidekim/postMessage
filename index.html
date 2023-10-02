@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origin</title>
+</head>
+<body>
+   <div id="main-content"></div> 
+
+<script type="text/javascript">
+    const creatIframe = ()=>{
+        iframe = document.createElement("iframe")
+        url = 'http://localhost:3000/destin'
+        iframe.src = url
+        iframe.dataSet = url
+        document.querySelector('#main-content').appendChild(iframe)
+    }
+const transfData = (obj)=>{
+  let data = obj
+  document.querySelector('#main-content iframe').contentWindow.postMessage(data, location.origin)
+}
+
+
+
+button = document.createElement("button")
+button.id = "showWindow"
+button.textContent = "Display Window"
+button.value = "Display Window"
+document.querySelector('#main-content').appendChild(button)
+
+
+creatIframe()
+
+document.querySelector('#showWindow').addEventListener('click', ()=>{
+    transfData(JSON.stringify({
+        '_token': 'tokenJWTaaaaa123.456.789',
+        '_expTime': '123131313131',
+        '_newvalue': '9896565656'
+
+    }))
+    console.log('clicou!!!')
+})
+</script>
+</body>
+</html>
